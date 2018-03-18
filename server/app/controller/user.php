@@ -31,33 +31,6 @@ class User extends Base
     {
         parent::__construct($app);
     }
-    
-    /**
-    * 函数说明
-    *
-    * @param object $request  请求
-    * @param object $response 响应
-    * @param array  $args     参数
-    *
-    * @return object
-    **/
-    public function index($request, $response, $args)
-    {   
-        $json         = array();
-
-        // 这是一个 Library 使用的例子
-        $lib_weixin   = new Lib_weixin();
-        $sign         = $lib_weixin->sign($this->data);
-
-        $json['code'] = 0;
-        $json['note'] = 'Success.';
-        $json['data'] = array('sign' => $sign);
-        $json['help'] = 'http://api.app.com';
-
-        return $response->withStatus(200)
-            ->withHeader("Content-Type", "application/json")
-            ->write(json_encode($json));
-    }
 
     /**
     * 如果你想要输出 JSON 格式的数据，可以参考这个例子

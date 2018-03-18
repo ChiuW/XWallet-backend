@@ -3,7 +3,7 @@
 return [
     'config' => [
            'displayErrorDetails' => true,
-             'defaultController' => 'user'
+             'defaultController' => 'base'
     ],
 ];
 

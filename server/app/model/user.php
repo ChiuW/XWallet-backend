@@ -2,16 +2,6 @@
 
 namespace Dolphin\Tan\Model;
 
-/** 
-* 简单的类介绍
-*  
-* @category Model
-* @package  User
-* @author   dolphin.wang <416509859@qq.com>
-* @license  MIT https://mit-license.org 
-* @link     https://github.com/dolphin836/Slim-Skeleton-MVC
-* @since    2017-05-18
-**/
 class User extends Base
 {
     /**

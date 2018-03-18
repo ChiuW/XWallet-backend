@@ -42,5 +42,18 @@ class Base
             $this->data['script'][] = 'https://res.wx.qq.com/open/libs/weuijs/1.1.1/weui.min.js';
         }
     }
+
+    public function index($request, $response, $args)
+    {   
+        $json         = array();
+
+        $json['code'] = 0;
+        $json['note'] = 'Method Not Find.';
+        $json['help'] = getenv("APP_DOMAIN");
+
+        return $response->withStatus(404)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($json));
+    }
 }
 
