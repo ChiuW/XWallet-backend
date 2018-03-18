@@ -14,6 +14,14 @@ $app->get('/user/{id:[0-9]+}', 'Dolphin\Tan\Controller\User:user')->setName('use
 $app->get('/status/{osType:[a-zA-Z]+}/{build}', 'Dolphin\Tan\Controller\Status:index')->setName('getStatus');
 
 // get Support Currency
-$app->get('/currency', 'Dolphin\Tan\Controller\Currency:supportCurrnecy')->setName('getSupportCurrency');
+$app->get('/currency', 'Dolphin\Tan\Controller\Currency:getSupportCurrency')->setName('getSupportCurrency');
+
+// get Currency price
+$app->get('/currency/price', 'Dolphin\Tan\Controller\Currency:getCurrencyPrice')->setName('getCurrencyPrice');
+
+// get Currency History
+$app->get('/currency/history/{symbol:[A-Z]+}', 'Dolphin\Tan\Controller\Currency:getCurrencyHistory')->setName('getCurrencyHistory');
+
+
 
 

@@ -1,7 +1,9 @@
 <?php
 
 namespace Dolphin\Tan\Model;
+
 use Medoo\Medoo;
+use GuzzleHttp\Client;
 
 /** 
 * 简单的类介绍
@@ -34,6 +36,12 @@ class Base
                   'charset' => 'utf8'
             ]
         );
+        $this->currencyClient = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => 'https://min-api.cryptocompare.com/',
+            // You can set any number of default request options.
+            'timeout'  => 2.0,
+        ]);
     }
 }
 

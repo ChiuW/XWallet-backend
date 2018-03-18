@@ -19,7 +19,9 @@
         "catfan/Medoo": "^1.4",
         "ramsey/uuid": "^3.6",
         "filp/whoops": "^2.1",
-        "tuupola/slim-jwt-auth": "^2.3"
+        "tuupola/slim-jwt-auth": "^2.3",
+        "rmccue/requests": "^1.7",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "autoload-dev": {
         "psr-4": {
