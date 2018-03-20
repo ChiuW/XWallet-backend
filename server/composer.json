@@ -1,39 +1,15 @@
 {
-    "name": "dolphin836/slim-restful-api",
-    "description": "基于 Slim 框架的 RESTful API 脚手架。",
-    "keywords": ["Slim", "脚手架", "RESTful", "API"],
-    "type": "project",
-    "homepage": "https://github.com/dolphin836/Slim-RESTful-API",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "dolphin.wang",
-            "email": "416509859@qq.com",
-            "homepage": "http://hbdx.cc/"
-        }
-    ],
     "require": {
-        "php": ">=5.5.0",
-        "slim/slim": "^3.1",
+        "slim/slim": "^3.0",
         "vlucas/phpdotenv": "^2.4",
-        "catfan/Medoo": "^1.4",
-        "ramsey/uuid": "^3.6",
+        "catfan/medoo": "^1.5",
         "filp/whoops": "^2.1",
-        "tuupola/slim-jwt-auth": "^2.3",
-        "rmccue/requests": "^1.7",
+        "ramsey/uuid": "^3.7",
         "guzzlehttp/guzzle": "^6.3"
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
     },
     "autoload": {
         "psr-4": {
-            "Dolphin\\Tan\\": "app/"
+          "XWallet\\": "src/"
         }
-    },
-	"scripts": {
-        "start": "php -S localhost:8080 -t public"
-	}
+    }
 }

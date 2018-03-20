@@ -1,27 +1,11 @@
 <?php
 
-// 默认路由
-$default = 'Dolphin\\Tan\\Controller\\' . ucwords($container->get('config')['defaultController']) . ':index';
+$app->get('/', 'XWallet\Test:getTest')->setName('getTest');
 
-$app->get('/', $default)->setName('default');
+$app->get('/base', 'XWallet\Controller\Base:default')->setName('default');
 
-// 自定义路由
+$app->get('/currency', 'XWallet\Controller\Currency:getSupportCurrency')->setName('getSupportCurrency');
 
-$app->get('/token', 'Dolphin\Tan\Controller\Token:index')->setName('token');
-$app->get('/user/{id:[0-9]+}', 'Dolphin\Tan\Controller\User:user')->setName('user');
+$app->get('/currency/price', 'XWallet\Controller\Currency:getCurrencyPrice')->setName('getCurrencyPrice');
 
-// get Status
-$app->get('/status/{osType:[a-zA-Z]+}/{build}', 'Dolphin\Tan\Controller\Status:index')->setName('getStatus');
-
-// get Support Currency
-$app->get('/currency', 'Dolphin\Tan\Controller\Currency:getSupportCurrency')->setName('getSupportCurrency');
-
-// get Currency price
-$app->get('/currency/price', 'Dolphin\Tan\Controller\Currency:getCurrencyPrice')->setName('getCurrencyPrice');
-
-// get Currency History
-$app->get('/currency/history/{symbol:[A-Z]+}', 'Dolphin\Tan\Controller\Currency:getCurrencyHistory')->setName('getCurrencyHistory');
-
-
-
-
+$app->get('/currency/history/{symbol:[A-Z]+}', 'XWallet\Controller\Currency:getCurrencyHistory')->setName('getCurrencyHistory');

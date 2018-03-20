@@ -14,6 +14,7 @@ $env = new Dotenv\Dotenv(ROOTPATH);
 $env->load();
 
 $whoops = new \Whoops\Run;
+
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
@@ -21,7 +22,7 @@ $set = include COREPATH . 'config.php';
 $app = new \Slim\App($set);
 
 require COREPATH . 'dependencies.php';
-require COREPATH . 'middleware.php';
+
 require COREPATH . 'routes.php';
 
 $app->run();
