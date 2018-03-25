@@ -6,6 +6,8 @@ use Psr\Container\ContainerInterface as ContainerInterface;
 
 use XWallet\Model\Currency as Model_currency;
 
+use XWallet\Model\Ethereum as Model_ethereum;
+
 class Currency extends Base {
 
     function __construct(ContainerInterface $app)
@@ -44,6 +46,7 @@ class Currency extends Base {
         $json['update_time']        = time();
         
         $this->app->log->write($json);
+
         return $response->withStatus(200)
             ->withHeader("Content-Type", "application/json")
             ->write(json_encode($json));
@@ -59,12 +62,85 @@ class Currency extends Base {
         $json['update_time']        = time();
         
         $this->app->log->write($json);
+
         return $response->withStatus(200)
             ->withHeader("Content-Type", "application/json")
             ->write(json_encode($json));
     }
 
-    public function getAddressBalance($request, $response, $args){
+    public function getSyncStatus($request, $response, $args){
+        $json               = array();
+        $Model_ethereum     = new Model_ethereum();
+        $responseObj        = $Model_ethereum->eth_syncing();
 
+        $json['data']               = $responseObj;
+        $json['update_time']        = time();
+
+        $this->app->log->write($json);
+
+        return $response->withStatus(200)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($json));
+    }
+
+    public function getBalance($request, $response, $args){
+
+        $json               = array();
+        $Model_ethereum     = new Model_ethereum();
+        $responseObj        = $Model_ethereum->eth_getBalance($args['address']);
+
+        $json['data']               = $responseObj;
+        $json['update_time']        = time();
+
+        $this->app->log->write($json);
+
+        return $response->withStatus(200)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($json));
+    }
+
+    public function getTransactionStatus($request, $response, $args){
+        $json               = array();
+        $Model_ethereum     = new Model_ethereum();
+        $responseObj        = $Model_ethereum->eth_getTransactionReceipt($args['address']);
+
+        $json['data']               = $responseObj;
+        $json['update_time']        = time();
+
+        $this->app->log->write($json);
+
+        return $response->withStatus(200)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($json));
+    }
+
+    public function getGasPrice($request, $response, $args){
+        $json               = array();
+        $Model_ethereum     = new Model_ethereum();
+        $responseObj        = $Model_ethereum->eth_gasPrice();
+
+        $json['data']               = $responseObj;
+        $json['update_time']        = time();
+
+        $this->app->log->write($json);
+
+        return $response->withStatus(200)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($json));
+    }
+
+    public function getEstimateGas($request, $response, $args){
+        $json               = array();
+        $Model_ethereum     = new Model_ethereum();
+        $responseObj        = $Model_ethereum->eth_gasPrice();
+
+        $json['data']               = $responseObj;
+        $json['update_time']        = time();
+
+        $this->app->log->write($json);
+
+        return $response->withStatus(200)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($json));
     }
 }

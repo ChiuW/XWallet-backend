@@ -5,7 +5,8 @@
         "catfan/medoo": "^1.5",
         "filp/whoops": "^2.1",
         "ramsey/uuid": "^3.7",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "achse/geth-jsonrpc-php-client": "^2.0"
     },
     "autoload": {
         "psr-4": {

@@ -4,9 +4,15 @@ namespace XWallet\Model;
 use Medoo\Medoo;
 use GuzzleHttp\Client;
 
+
+
 class Base
 {
+    const JSON_RPC_VERSION = '2.0';
+
     protected $db;
+    protected $ethereumClient;
+    protected $id;
     
     function __construct()
     {
@@ -22,10 +28,27 @@ class Base
         );
 
         $this->currencyClient = new Client([
-            // Base URI is used with relative requests
             'base_uri' => 'https://min-api.cryptocompare.com/',
-            // You can set any number of default request options.
             'timeout'  => 2.0,
         ]);
+
+        $this->ethereumClient = new Client([
+            'base_uri' => 'http://35.229.228.204:8545/',
+            'timeout'  => 2.0,
+            'headers' => [ 'Content-Type' => 'application/json' ]
+        ]);
+        $this->id = 1;
+    }
+
+    function paserJsonRPC($method, array $params){
+        echo $method;
+        $request = [
+            'jsonrpc' => "2.0",
+            'method' => $method,
+            'params' => array_values($params),
+            'id' => "1",
+        ];
+        $json_request = json_encode($request);
+        return $json_request;
     }
 }
