@@ -18,8 +18,15 @@ class Base
         $this->lib_log = new Log();
     }
 
-    public static function default()
+    public static function default($request, $response)
     {
-        echo "get Hi";
+        $json               = array();
+
+        $json['message']    = "Hello World";
+        $json['time']       = time();
+        
+        return $response->withStatus(200)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($json));
     }
 }

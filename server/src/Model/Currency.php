@@ -23,10 +23,9 @@ class Currency extends Base {
         $responseObj['disPrice']        = $displayObj['PRICE'];
         $responseObj['rawDif']          = $rawObj['CHANGE24HOUR'];
         $responseObj['difference']      = $displayObj['CHANGE24HOUR'];
-        
-        
         return $responseObj;
     }
+
     public function getCurrencyHistoryData($symbol, $tagetCurrency)
     {   
         $response               = $this->currencyClient->request('GET', 'data/histohour?fsym='.$symbol.'&tsym='.$tagetCurrency.'&limit=23');

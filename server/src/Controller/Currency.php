@@ -63,4 +63,8 @@ class Currency extends Base {
             ->withHeader("Content-Type", "application/json")
             ->write(json_encode($json));
     }
+
+    public function getAddressBalance($request, $response, $args){
+
+    }
 }
