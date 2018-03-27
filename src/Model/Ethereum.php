@@ -16,6 +16,9 @@ class Ethereum extends Base {
         $json_request   = $this->paserJsonRPC("eth_syncing",[]);
         $response       = $this->ethereumClient->post('', ['body' => $json_request]);
         $data           = json_decode($response->getBody(), TRUE);
+
+        echo $data;
+        
         $currentBlock = hexdec($data['result']['currentBlock']);
         $highestBlock = hexdec($data['result']['highestBlock']);
         $sycn_percent = $currentBlock/$highestBlock;

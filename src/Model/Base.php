@@ -41,7 +41,6 @@ class Base
     }
 
     function paserJsonRPC($method, array $params){
-        echo $method;
         $request = [
             'jsonrpc' => "2.0",
             'method' => $method,
