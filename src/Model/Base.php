@@ -28,12 +28,12 @@ class Base
         );
 
         $this->currencyClient = new Client([
-            'base_uri' => 'https://min-api.cryptocompare.com/',
+            'base_uri' => getenv('DATA_SRC'),
             'timeout'  => 2.0,
         ]);
 
         $this->ethereumClient = new Client([
-            'base_uri' => 'http://35.229.228.204:8545/',
+            'base_uri' => getenv('ETH_NODE'),
             'timeout'  => 2.0,
             'headers' => [ 'Content-Type' => 'application/json' ]
         ]);

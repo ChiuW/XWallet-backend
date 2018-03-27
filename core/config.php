@@ -1,7 +1,7 @@
 <?php
 return [
     'config' => [
-           'displayErrorDetails' => true,
+        'displayErrorDetails' => true,
         'addContentLengthHeader' => true,
     ],
 ];
