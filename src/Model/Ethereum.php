@@ -64,7 +64,7 @@ class Ethereum extends Base {
         $response       = $this->ethereumClient->post('', ['body' => $json_request]);
 
         $data           = json_decode($response->getBody(), TRUE);
-
+        print_r($data);
         $responseObj                = array();
 
         if ($data['result']) {
