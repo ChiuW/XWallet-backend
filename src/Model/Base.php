@@ -50,4 +50,9 @@ class Base
         $json_request = json_encode($request);
         return $json_request;
     }
+
+    function wei2int($wei)
+    {
+        return bcdiv($wei,'1000000000000000000',18);
+    }
 }

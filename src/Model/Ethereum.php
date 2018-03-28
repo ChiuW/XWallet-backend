@@ -38,7 +38,7 @@ class Ethereum extends Base {
         $data           = json_decode($response->getBody(), TRUE);
         $balance        = hexdec($data['result']);
 
-        $balance        = wei2eth($balance);
+        $balance        = $this->wei2eth($balance);
 
         $responseObj                = array();
         $responseObj['balance']      = $balance;
@@ -75,10 +75,5 @@ class Ethereum extends Base {
         $responseObj['success']     = $isSuccess == 1 ? true: false;
 
         return $responseObj;
-    }
-
-    public function wei2eth($wei)
-    {
-        return bcdiv($wei,'1000000000000000000',18);
     }
 }
