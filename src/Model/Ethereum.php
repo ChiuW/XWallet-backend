@@ -60,7 +60,21 @@ class Ethereum extends Base {
     }
 
     public function eth_sendRawTransaction($tx){
+        $json_request   = $this->paserJsonRPC("eth_sendRawTransaction",[$tx]);
+        $response       = $this->ethereumClient->post('', ['body' => $json_request]);
 
+        $data           = json_decode($response->getBody(), TRUE);
+        $result         = hexdec($data['result']);
+
+        $responseObj                = array();
+        if ($result == 0){
+            $responseObj['success'] = false;
+        }else{
+            $responseObj['success'] = true;
+            $responseObj['TxHash']  = $data['result'];
+        }
+
+        return $responseObj;
     }
 
     public function eth_getTransactionReceipt($address){

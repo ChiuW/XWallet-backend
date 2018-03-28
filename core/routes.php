@@ -10,6 +10,9 @@ $app->get('/currency/history/{symbol:[A-Z]+}', 'XWallet\Controller\Currency:getC
 //Ethereum
 $app->get('/ETH/status', 'XWallet\Controller\Currency:getSyncStatus')->setName('getSyncStatus:ETH');
 $app->get('/ETH/balance/{address:[A-z0-9]+}', 'XWallet\Controller\Currency:getBalance')->setName('getBalance:ETH');
+
+$app->post('/ETH/transaction', 'XWallet\Controller\Currency:postTransaction')->setName('postTransaction:ETH');
 $app->get('/ETH/transaction/status/{address:[A-z0-9]+}', 'XWallet\Controller\Currency:getTransactionStatus')->setName('getTransactionStatus:ETH');
+
 $app->get('/ETH/gas/price/', 'XWallet\Controller\Currency:getGasPrice')->setName('getGasPrice:ETH');
 $app->get('/ETH/gas/estimate/', 'XWallet\Controller\Currency:getEstimateGas')->setName('getEstimateGas:ETH');

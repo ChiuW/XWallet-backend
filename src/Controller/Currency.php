@@ -99,6 +99,24 @@ class Currency extends Base {
             ->write(json_encode($json));
     }
 
+    public function postTransaction($request, $response, $args){
+        $json               = array();
+        $Model_ethereum     = new Model_ethereum();
+
+        $data               = $request->getParams();
+        print_r($data);
+        // $responseObj        = $Model_ethereum->eth_sendRawTransaction($args['address']);
+
+        $json['data']               = $responseObj;
+        $json['update_time']        = time();
+
+        $this->app->log->write($json);
+
+        return $response->withStatus(200)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($json));
+    }
+
     public function getTransactionStatus($request, $response, $args){
         $json               = array();
         $Model_ethereum     = new Model_ethereum();
