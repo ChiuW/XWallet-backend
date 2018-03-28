@@ -103,7 +103,7 @@ class Currency extends Base {
         $json               = array();
         $Model_ethereum     = new Model_ethereum();
 
-        $txHash             = $request->getParams("address");
+        $txHash             = $request->getParam("address");
         $responseObj        = $Model_ethereum->eth_sendRawTransaction($txHash);
 
         $json['data']               = $responseObj;
