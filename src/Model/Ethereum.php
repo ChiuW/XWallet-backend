@@ -67,7 +67,7 @@ class Ethereum extends Base {
         print_r($data);
         $responseObj                = array();
 
-        if ($data['result']) {
+        if ($data['error'] != null) {
             $responseObj['success'] = false;
             $responseObj['error']   = $data['error'];
         }else{
