@@ -64,16 +64,17 @@ class Ethereum extends Base {
         $response       = $this->ethereumClient->post('', ['body' => $json_request]);
 
         $data           = json_decode($response->getBody(), TRUE);
-        $result         = hexdec($data['result']);
 
         $responseObj                = array();
-        if ($result == 0){
+
+        if ($data['result'] == false) {
             $responseObj['success'] = false;
+            $responseObj['error']   = $data['error'];
         }else{
             $responseObj['success'] = true;
             $responseObj['TxHash']  = $data['result'];
         }
-
+    
         return $responseObj;
     }
 
