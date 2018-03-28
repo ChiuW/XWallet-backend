@@ -16,6 +16,7 @@ class Ethereum extends Base {
         $json_request   = $this->paserJsonRPC("eth_syncing",[]);
         $response       = $this->ethereumClient->post('', ['body' => $json_request]);
         $data           = json_decode($response->getBody(), TRUE);
+
         if ($data['result'] == false) {
             $sycn_percent = 1;
         }else{
@@ -36,6 +37,8 @@ class Ethereum extends Base {
 
         $data           = json_decode($response->getBody(), TRUE);
         $balance        = hexdec($data['result']);
+
+        $balance        = wei2eth($balance);
 
         $responseObj                = array();
         $responseObj['balance']      = $balance;
@@ -72,5 +75,10 @@ class Ethereum extends Base {
         $responseObj['success']     = $isSuccess == 1 ? true: false;
 
         return $responseObj;
+    }
+
+    public function wei2eth($wei)
+    {
+        return bcdiv($wei,'1000000000000000000',18);
     }
 }
