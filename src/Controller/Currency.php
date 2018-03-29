@@ -103,7 +103,8 @@ class Currency extends Base {
         $json               = array();
         $Model_ethereum     = new Model_ethereum();
 
-        $txHash             = $request->getParam("address");
+        $txHash             = $request->getParam("txHash");
+
         $responseObj        = $Model_ethereum->eth_sendRawTransaction($txHash);
 
         $json['data']               = $responseObj;
@@ -126,6 +127,18 @@ class Currency extends Base {
 
         $this->app->log->write($json);
 
+        return $response->withStatus(200)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($json));
+    }
+    
+    public function getTransactionCount($request, $response, $args){
+        $json               = array();
+        $Model_ethereum     = new Model_ethereum();
+        $responseObj        = $Model_ethereum->eth_getTransactionCount($args['address']);
+        $json['data']               = $responseObj;
+        $json['update_time']        = time();
+        $this->app->log->write($json);
         return $response->withStatus(200)
             ->withHeader("Content-Type", "application/json")
             ->write(json_encode($json));

@@ -10,6 +10,7 @@ $app->get('/currency/history/{symbol:[A-Z]+}', 'XWallet\Controller\Currency:getC
 //Ethereum
 $app->get('/ETH/status', 'XWallet\Controller\Currency:getSyncStatus')->setName('getSyncStatus:ETH');
 $app->get('/ETH/balance/{address:[A-z0-9]+}', 'XWallet\Controller\Currency:getBalance')->setName('getBalance:ETH');
+$app->get('/ETH/transactioncount/{address:[A-z0-9]+}', 'XWallet\Controller\Currency:getTransactionCount')->setName('getTransactionCount:ETH');
 
 $app->post('/ETH/transaction', 'XWallet\Controller\Currency:postTransaction')->setName('postTransaction:ETH');
 $app->get('/ETH/transaction/status/{address:[A-z0-9]+}', 'XWallet\Controller\Currency:getTransactionStatus')->setName('getTransactionStatus:ETH');

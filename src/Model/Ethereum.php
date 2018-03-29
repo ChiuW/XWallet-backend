@@ -34,14 +34,18 @@ class Ethereum extends Base {
     public function eth_getBalance($address){
         $json_request   = $this->paserJsonRPC("eth_getBalance",[$address,'latest']);
         $response       = $this->ethereumClient->post('', ['body' => $json_request]);
-
+        
         $data           = json_decode($response->getBody(), TRUE);
         $balance        = hexdec($data['result']);
-
         $balance        = $this->wei2int($balance);
+        
+        $response   = $this->currencyClient->request('GET', 'data/price?fsym=ETH&tsyms=HKD');
+        $data       = json_decode($response->getBody(), TRUE);
+        $price      = $data['HKD'];
 
         $responseObj                = array();
-        $responseObj['balance']      = $balance;
+        $responseObj['balance']     = $balance;
+        $responseObj['price']       = $price;
 
         return $responseObj;
     }
@@ -59,12 +63,20 @@ class Ethereum extends Base {
         return $responseObj;
     }
 
+    public function eth_getTransactionCount($address) {
+        $json_request   = $this->paserJsonRPC("eth_getTransactionCount",[$address, 'latest']);
+        $response       = $this->ethereumClient->post('', ['body' => $json_request]);
+        $nonce          = hexdec($data['result']);
+        $responseObj                = array();
+        $responseObj['nonce']       = $nonce;
+        return $responseObj;
+    }
+
     public function eth_sendRawTransaction($tx){
         $json_request   = $this->paserJsonRPC("eth_sendRawTransaction",[$tx]);
         $response       = $this->ethereumClient->post('', ['body' => $json_request]);
 
         $data           = json_decode($response->getBody(), TRUE);
-        print_r($data);
         $responseObj                = array();
 
         if (array_key_exists("error", $data)) {
@@ -72,7 +84,15 @@ class Ethereum extends Base {
             $responseObj['error']   = $data['error'];
         }else{
             $responseObj['success'] = true;
-            $responseObj['TxHash']  = $data['result'];
+            $txHash                 = $data['result'];
+
+            $json_request   = $this->paserJsonRPC("eth_getTransactionByHash",[$txHash]);
+            $data           = json_decode($response->getBody(), TRUE);
+            if (array_key_exists("result", $data)){
+                $responseObj['TxHash']     = $data['result']['hash'];
+            }else{
+                $responseObj['error']   = $data['error'];
+            }
         }
     
         return $responseObj;
