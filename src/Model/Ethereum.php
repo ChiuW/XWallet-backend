@@ -38,10 +38,10 @@ class Ethereum extends Base {
         $data           = json_decode($response->getBody(), TRUE);
         $balance        = hexdec($data['result']);
         $balance        = $this->wei2int($balance);
-        
+
         $response   = $this->currencyClient->request('GET', 'data/price?fsym=ETH&tsyms=HKD');
         $data       = json_decode($response->getBody(), TRUE);
-        $price      = $data['HKD'];
+        $price      = $data['HKD'] * (int)$balance;
 
         $responseObj                = array();
         $responseObj['balance']     = $balance;
