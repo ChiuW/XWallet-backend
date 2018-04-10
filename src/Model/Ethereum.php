@@ -66,6 +66,7 @@ class Ethereum extends Base {
     public function eth_getTransactionCount($address) {
         $json_request   = $this->paserJsonRPC("eth_getTransactionCount",[$address, 'latest']);
         $response       = $this->ethereumClient->post('', ['body' => $json_request]);
+        $data           = json_decode($response->getBody(), TRUE);
         $nonce          = hexdec($data['result']);
         $responseObj                = array();
         $responseObj['nonce']       = $nonce;
