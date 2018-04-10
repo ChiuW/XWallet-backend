@@ -41,7 +41,7 @@ class Ethereum extends Base {
 
         $response   = $this->currencyClient->request('GET', 'data/price?fsym=ETH&tsyms=HKD');
         $data       = json_decode($response->getBody(), TRUE);
-        $price      = $data['HKD'] * (int)$balance;
+        $price      = $data['HKD'] * (float)$balance;
 
         $responseObj                = array();
         $responseObj['balance']     = $balance;
