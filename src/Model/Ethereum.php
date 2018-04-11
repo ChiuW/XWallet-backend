@@ -89,26 +89,24 @@ class Ethereum extends Base {
 
             $json_request   = $this->paserJsonRPC("eth_getTransactionByHash",[$txHash]);
             $data           = json_decode($response->getBody(), TRUE);
-            $this->db->select('currency', ['name', 'symbol', 'node'], ['enable' => '1']);
             
             if (array_key_exists("result", $data)){
                 $responseObj['TxHash']     = $data['result'];
-                $inner = $data['result'];
-                // print_r($data);
-                // print_r($inner);
-                // $database->insert("transaction", [
-                //     "hash" => $data['result']['hash'],
-                //     "nonce" => $data['result']['nonce'],
-                //     "blockHash" => $data['result']['blockHash'],
-                //     "blockNumber" => $data['result']['blockNumber'],
-                //     "transactionIndex" => $data['result']['transactionIndex'],
-                //     "from" => $data['result']['from'],
-                //     "to" => $data['result']['to'],
-                //     "value" => $data['result']['value'],
-                //     "gas" => $data['result']['gas'],
-                //     "gasPrice" => $data['result']['gasPrice'],
-                //     "input" => $data['result']['input'],
-                // ]);
+                $json_request   = $this->paserJsonRPC("eth_getTransactionReceipt",[$address]);
+                $response       = $this->ethereumClient->post('', ['body' => $json_request]);
+                $data           = json_decode($response->getBody(), TRUE);
+                $database->insert("transaction", [
+                    "hash" => $data['result']['transactionHash'],
+                    "blockHash" => $data['result']['blockHash'],
+                    "blockNumber" => $data['result']['blockNumber'],
+                    "cumulativeGasUsed" => $data['result']['cumulativeGasUsed'],
+                    "from" => $data['result']['from'],
+                    "gasUsed" => $data['result']['gasUsed'],
+                    "status" => $data['result']['status'],
+                    "to" => $data['result']['to'],
+                    "transactionHash" => $data['result']['transactionHash'],
+                    "transactionIndex" => $data['result']['transactionIndex'],
+                ]);
             }else{
                 $responseObj['error']   = $data['error'];
             }
