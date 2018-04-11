@@ -90,7 +90,7 @@ class Ethereum extends Base {
             $json_request   = $this->paserJsonRPC("eth_getTransactionByHash",[$txHash]);
             $data           = json_decode($response->getBody(), TRUE);
             if (array_key_exists("result", $data)){
-                $responseObj['TxHash']     = $data['result']['hash'];
+                $responseObj['TxHash']     = $data['result'];
             }else{
                 $responseObj['error']   = $data['error'];
             }
