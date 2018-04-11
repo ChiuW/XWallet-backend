@@ -93,19 +93,22 @@ class Ethereum extends Base {
             
             if (array_key_exists("result", $data)){
                 $responseObj['TxHash']     = $data['result'];
-                $database->insert("transaction", [
-                    "hash" => $data['result']['hash'],
-                    "nonce" => $data['result']['nonce'],
-                    "blockHash" => $data['result']['blockHash'],
-                    "blockNumber" => $data['result']['blockNumber'],
-                    "transactionIndex" => $data['result']['transactionIndex'],
-                    "from" => $data['result']['from'],
-                    "to" => $data['result']['to'],
-                    "value" => $data['result']['value'],
-                    "gas" => $data['result']['gas'],
-                    "gasPrice" => $data['result']['gasPrice'],
-                    "input" => $data['result']['input'],
-                ]);
+                $inner = $data['result'];
+                // print_r($data);
+                // print_r($inner);
+                // $database->insert("transaction", [
+                //     "hash" => $data['result']['hash'],
+                //     "nonce" => $data['result']['nonce'],
+                //     "blockHash" => $data['result']['blockHash'],
+                //     "blockNumber" => $data['result']['blockNumber'],
+                //     "transactionIndex" => $data['result']['transactionIndex'],
+                //     "from" => $data['result']['from'],
+                //     "to" => $data['result']['to'],
+                //     "value" => $data['result']['value'],
+                //     "gas" => $data['result']['gas'],
+                //     "gasPrice" => $data['result']['gasPrice'],
+                //     "input" => $data['result']['input'],
+                // ]);
             }else{
                 $responseObj['error']   = $data['error'];
             }
