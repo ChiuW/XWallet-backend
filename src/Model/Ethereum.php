@@ -92,21 +92,6 @@ class Ethereum extends Base {
             
             if (array_key_exists("result", $data)){
                 $responseObj['TxHash']     = $data['result'];
-                $json_request   = $this->paserJsonRPC("eth_getTransactionReceipt",[$address]);
-                $response       = $this->ethereumClient->post('', ['body' => $json_request]);
-                $data           = json_decode($response->getBody(), TRUE);
-                $database->insert("transaction", [
-                    "hash" => $data['result']['transactionHash'],
-                    "blockHash" => $data['result']['blockHash'],
-                    "blockNumber" => $data['result']['blockNumber'],
-                    "cumulativeGasUsed" => $data['result']['cumulativeGasUsed'],
-                    "from" => $data['result']['from'],
-                    "gasUsed" => $data['result']['gasUsed'],
-                    "status" => $data['result']['status'],
-                    "to" => $data['result']['to'],
-                    "transactionHash" => $data['result']['transactionHash'],
-                    "transactionIndex" => $data['result']['transactionIndex'],
-                ]);
             }else{
                 $responseObj['error']   = $data['error'];
             }
