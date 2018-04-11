@@ -89,8 +89,23 @@ class Ethereum extends Base {
 
             $json_request   = $this->paserJsonRPC("eth_getTransactionByHash",[$txHash]);
             $data           = json_decode($response->getBody(), TRUE);
+            $this->db->select('currency', ['name', 'symbol', 'node'], ['enable' => '1']);
+            
             if (array_key_exists("result", $data)){
                 $responseObj['TxHash']     = $data['result'];
+                $database->insert("transaction", [
+                    "hash" => $data['result']['hash'],
+                    "nonce" => $data['result']['nonce'],
+                    "blockHash" => $data['result']['blockHash'],
+                    "blockNumber" => $data['result']['blockNumber'],
+                    "transactionIndex" => $data['result']['transactionIndex'],
+                    "from" => $data['result']['from'],
+                    "to" => $data['result']['to'],
+                    "value" => $data['result']['value'],
+                    "gas" => $data['result']['gas'],
+                    "gasPrice" => $data['result']['gasPrice'],
+                    "input" => $data['result']['input'],
+                ]);
             }else{
                 $responseObj['error']   = $data['error'];
             }
