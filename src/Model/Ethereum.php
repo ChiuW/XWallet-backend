@@ -106,11 +106,18 @@ class Ethereum extends Base {
         $response       = $this->ethereumClient->post('', ['body' => $json_request]);
 
         $data           = json_decode($response->getBody(), TRUE);
-        $isSuccess      = hexdec($data['result']['status']);
+        $isSuccess      = hexdec($data['result']['status']) == 1 ? true: false;
 
         $responseObj                = array();
-        $responseObj['success']     = $isSuccess == 1 ? true: false;
-        $responseObj['result']        = $data['result'];
+        $responseObj['success']     = $isSuccess;
+        $responseObj['receipt']     = $data['result'];
+        
+        if($isSuccess){
+            $json_request   = $this->paserJsonRPC("eth_getTransactionByHash",[$address]);
+            $response       = $this->ethereumClient->post('', ['body' => $json_request]);
+            $data           = json_decode($response->getBody(), TRUE);
+            $responseObj['info']    = $data['result'];
+        }
 
         return $responseObj;
     }
